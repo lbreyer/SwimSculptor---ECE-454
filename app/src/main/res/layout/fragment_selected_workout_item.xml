@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:text="Close" />
+
+    <!-- Name TextView -->
+    <TextView
+        android:id="@+id/name_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/back_button"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:text="Name"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <!-- Notes TextView -->
+    <TextView
+        android:id="@+id/notes_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/name_textview"
+        android:layout_margin="16dp"
+        android:text="Notes" />
+
+    <!-- Distance TextView -->
+    <TextView
+        android:id="@+id/distance_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/notes_textview"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="Distance" />
+
+    <!-- Count TextView -->
+    <TextView
+        android:id="@+id/count_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/distance_textview"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="Count" />
+
+    <!-- Pace TextView -->
+    <TextView
+        android:id="@+id/pace_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/count_textview"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="Pace" />
+
+    <Button
+        android:id="@+id/remove_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"
+        android:text="Remove" />
+
+</RelativeLayout>

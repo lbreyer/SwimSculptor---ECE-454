@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import androidx.lifecycle.LiveData;
 
 import com.example.swimappuiframework.data.HistoryItem;
+import com.example.swimappuiframework.data.Pace;
 import com.example.swimappuiframework.data.Workout;
 import com.example.swimappuiframework.data.WorkoutItem;
 
@@ -16,18 +17,22 @@ public class WorkoutRepository {
     private WorkoutItemDao workoutItemDao;
     private WorkoutDao workoutDao;
     private HistoryDao historyDao;
+    private PaceDao paceDao;
     private LiveData<List<WorkoutItem>> allWorkoutItems;
     private LiveData<List<Workout>> allWorkouts;
     private LiveData<List<HistoryItem>> allHistoryItems;
+    private LiveData<List<Pace>> allPaces;
 
     public WorkoutRepository(Application application) {
         AppDatabase database = AppDatabase.getInstance(application);
         workoutItemDao = database.workoutItemDao();
         workoutDao = database.workoutDao();
         historyDao = database.historyDao();
+        paceDao = database.paceDao();
         allWorkoutItems = workoutItemDao.getAllWorkoutItems();
         allWorkouts = workoutDao.getAllWorkouts();
         allHistoryItems = historyDao.getAllHistoryItems();
+        allPaces = paceDao.getAllPaces();
     }
 
     public void insert(WorkoutItem workoutItem) {
@@ -45,6 +50,11 @@ public class WorkoutRepository {
         new InsertHistoryItemAsyncTask(historyDao).execute(historyItem);
     }
 
+    public void insert(Pace pace) {
+        // Perform database insert on a background thread
+        new InsertPaceAsyncTask(paceDao).execute(pace);
+    }
+
     public LiveData<List<WorkoutItem>> getAllWorkoutItems() {
         return allWorkoutItems;
     }
@@ -54,6 +64,8 @@ public class WorkoutRepository {
     }
 
     public LiveData<List<HistoryItem>> getAllHistoryItems() { return allHistoryItems; }
+
+    public LiveData<List<Pace>> getAllPaces() { return allPaces; }
 
     private static class InsertWorkoutItemAsyncTask extends AsyncTask<WorkoutItem, Void, Void> {
         private WorkoutItemDao workoutItemDao;
@@ -93,6 +105,20 @@ public class WorkoutRepository {
         @Override
         protected Void doInBackground(HistoryItem... historyItems) {
             historyDao.insert(historyItems[0]);
+            return null;
+        }
+    }
+
+    private static class InsertPaceAsyncTask extends AsyncTask<Pace, Void, Void> {
+        private PaceDao paceDao;
+
+        private InsertPaceAsyncTask(PaceDao paceDao) {
+            this.paceDao = paceDao;
+        }
+
+        @Override
+        protected Void doInBackground(Pace... paces) {
+            paceDao.insert(paces[0]);
             return null;
         }
     }

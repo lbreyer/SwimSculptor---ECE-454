@@ -7,15 +7,17 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 import com.example.swimappuiframework.data.HistoryItem;
+import com.example.swimappuiframework.data.Pace;
 import com.example.swimappuiframework.data.Workout;
 import com.example.swimappuiframework.data.WorkoutItem;
 
-@Database(entities = {WorkoutItem.class, Workout.class, HistoryItem.class}, version = 1, exportSchema = false)
+@Database(entities = {WorkoutItem.class, Workout.class, HistoryItem.class, Pace.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
     public abstract WorkoutItemDao workoutItemDao();
     public abstract WorkoutDao workoutDao();
     public abstract HistoryDao historyDao();
+    public abstract PaceDao paceDao();
 
     private static AppDatabase INSTANCE;
 

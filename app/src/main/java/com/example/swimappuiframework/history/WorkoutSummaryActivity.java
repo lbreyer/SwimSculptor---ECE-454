@@ -9,15 +9,21 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.swimappuiframework.MyApp;
 import com.example.swimappuiframework.R;
 import com.example.swimappuiframework.data.WorkoutSummaryItem;
+import com.example.swimappuiframework.database.DatabaseViewModel;
 
 public class WorkoutSummaryActivity extends AppCompatActivity {
+
+    private DatabaseViewModel databaseViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workout_summary);
+
+        databaseViewModel = ((MyApp) getApplication()).getWorkoutItemViewModel(); // TODO use to get workout from summary item
 
         Button btnBack = findViewById(R.id.btnBack);
         TextView textViewDate = findViewById(R.id.textViewDate);

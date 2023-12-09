@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.swimappuiframework.R;
@@ -22,9 +24,16 @@ public class CWWorkoutItemAdapter extends
 
     public List<WorkoutItem> mSelectedWorkoutItemList;
 
-    public CWWorkoutItemAdapter(Context context) {
+    private SelectedWorkoutItemFragment mFrag;
+
+    private Context context;
+
+    private FragmentManager mFragManager;
+
+    public CWWorkoutItemAdapter(Context context, FragmentManager mFragManager) {
         mInflater = LayoutInflater.from(context);
         mSelectedWorkoutItemList = new ArrayList<>();
+        this.mFragManager = mFragManager;
     }
 
     @NonNull
@@ -47,7 +56,7 @@ public class CWWorkoutItemAdapter extends
         return mSelectedWorkoutItemList.size();
     }
 
-    public class CreateWorkoutViewHolder extends RecyclerView.ViewHolder {
+    public class CreateWorkoutViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public final TextView workoutItemView;  // Public final TextView variable
         public final CWWorkoutItemAdapter mAdapter;  // Final variable for WordListAdapter
 
@@ -55,6 +64,20 @@ public class CWWorkoutItemAdapter extends
             super(itemView);
             workoutItemView = itemView.findViewById(R.id.name);
             mAdapter = adapter;
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            // Get the position of the item that was clicked.
+            int mPosition = getLayoutPosition();
+            // Use that to access the affected item in mWordList.
+            WorkoutItem element = mSelectedWorkoutItemList.get(mPosition);
+            // Notify the adapter, that the data has changed so it can
+            // update the RecyclerView to display the data.
+
+            SelectedWorkoutItemFragment mFrag = SelectedWorkoutItemFragment.newInstance(element);
+            mFrag.show(mFragManager, "fragment_selected_workout_item");
         }
     }
 

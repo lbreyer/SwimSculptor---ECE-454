@@ -1,27 +1,61 @@
 package com.example.swimappuiframework.data;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class WorkoutSummaryItem implements Serializable {
     private String date;
-    private String totalTime;
+    private long totalTime;
     private String totalYards;
+    private long workoutId;
+    private List<List<Double>> correlationScores;
 
-    public WorkoutSummaryItem(String date, String totalTime, String totalYards) {
+    public WorkoutSummaryItem(String date, long totalTime, String totalYards) {
         this.date = date;
         this.totalTime = totalTime;
         this.totalYards = totalYards;
+    }
+
+    public WorkoutSummaryItem(HistoryItem item) {
+        this.date = item.getDate();
+        this.totalTime = item.getTime();
+        this.totalYards = "50 yards"; // TODO update this with total yards
+        this.workoutId = item.getWorkoutId();
+        this.correlationScores = stringToList(item.getCorrValues());
     }
 
     public String getDate() {
         return date;
     }
 
-    public String getTotalTime() {
+    public long getTotalTime() {
         return totalTime;
     }
 
     public String getTotalYards() {
         return totalYards;
+    }
+
+    public long getWorkoutId() { return workoutId; }
+
+    public List<List<Double>> getCorrelationScores() { return correlationScores; }
+
+    public static List<List<Double>> stringToList(String input) {
+        List<List<Double>> result = new ArrayList<>();
+        String[] lines = input.split("\n");
+
+        for (String line : lines) {
+            List<Double> innerList = new ArrayList<>();
+            String[] values = line.trim().split(" ");
+
+            for (String value : values) {
+                innerList.add(Double.parseDouble(value));
+            }
+
+            result.add(innerList);
+        }
+
+        return result;
     }
 }

@@ -16,5 +16,40 @@
         android:layout_alignParentTop="true"
         />
 
-    <!-- Add your layout components for creating a pace here -->
+    <EditText
+        android:id="@+id/editTextName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Name"
+        android:layout_below="@id/btnBack"
+        android:layout_margin="16dp"
+        />
+
+    <EditText
+        android:id="@+id/editTextNotes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Notes"
+        android:layout_below="@id/editTextName"
+        android:layout_margin="16dp"
+        />
+
+    <Button
+        android:id="@+id/btnRecord"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Record"
+        android:layout_below="@id/editTextNotes"
+        android:layout_margin="16dp"
+        />
+
+    <Button
+        android:id="@+id/btnSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:layout_below="@id/btnRecord"
+        android:layout_margin="16dp"
+        />
+
 </RelativeLayout>

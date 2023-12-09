@@ -9,12 +9,19 @@ import android.widget.AdapterView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.swimappuiframework.MyApp;
 import com.example.swimappuiframework.R;
+import com.example.swimappuiframework.data.HistoryItem;
+import com.example.swimappuiframework.data.WorkoutItem;
 import com.example.swimappuiframework.data.WorkoutSummaryItem;
+import com.example.swimappuiframework.database.DatabaseViewModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class HistoryActivity extends AppCompatActivity {
+
+    private DatabaseViewModel databaseViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,10 +33,19 @@ public class HistoryActivity extends AppCompatActivity {
 
         // Create a list of WorkoutItems (you should define the WorkoutItem class).
         ArrayList<WorkoutSummaryItem> workoutSummaryItems = new ArrayList<>();
+
+        databaseViewModel = ((MyApp) getApplication()).getWorkoutItemViewModel();
+
+        List<HistoryItem> items =  databaseViewModel.getAllHistoryItems().getValue();
+
         // Populate the list with workout data.
-        workoutSummaryItems.add(new WorkoutSummaryItem("11/4/2023", "2:15:56", "2800"));
-        workoutSummaryItems.add(new WorkoutSummaryItem("11/5/2023", "1:45:36", "2450"));
-        workoutSummaryItems.add(new WorkoutSummaryItem("11/5/2023", "1:34:29", "2100"));
+        //workoutSummaryItems.add(new WorkoutSummaryItem("11/4/2023", "2:15:56", "2800"));
+        //workoutSummaryItems.add(new WorkoutSummaryItem("11/5/2023", "1:45:36", "2450"));
+        //workoutSummaryItems.add(new WorkoutSummaryItem("11/5/2023", "1:34:29", "2100"));
+
+        for (HistoryItem item : items) {
+            workoutSummaryItems.add(new WorkoutSummaryItem(item));
+        }
 
         // Create a custom adapter for the list view.
         WorkoutListAdapter adapter = new WorkoutListAdapter(this, workoutSummaryItems);

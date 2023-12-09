@@ -20,7 +20,7 @@ import com.example.swimappuiframework.database.DatabaseViewModel;
 
 import java.util.List;
 
-public class CreateWorkoutActivity extends AppCompatActivity implements AddWorkoutItemDialogFragment.OnDataPassedListener {
+public class CreateWorkoutActivity extends AppCompatActivity implements AddWorkoutItemDialogFragment.OnDataPassedListener, SelectedWorkoutItemFragment.OnDataPassedListener {
 
     private DatabaseViewModel databaseViewModel;
 
@@ -37,7 +37,7 @@ public class CreateWorkoutActivity extends AppCompatActivity implements AddWorko
 
         // Set up the recycler view in the popup
         mRecyclerView = findViewById(R.id.recyclerview);
-        mAdapter = new CWWorkoutItemAdapter(this);
+        mAdapter = new CWWorkoutItemAdapter(this, getSupportFragmentManager());
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -109,8 +109,13 @@ public class CreateWorkoutActivity extends AppCompatActivity implements AddWorko
     }
 
     @Override
-    public void onDataPassed(WorkoutItem data) {
-        mAdapter.mSelectedWorkoutItemList.add(data);
+    public void onDataPassed(WorkoutItem data, int mode) {
+        if (mode == 0) {
+            mAdapter.mSelectedWorkoutItemList.add(data);
+        }
+        else if (mode == 1) {
+            mAdapter.mSelectedWorkoutItemList.remove(data);
+        }
         mAdapter.notifyDataSetChanged();
     }
 }

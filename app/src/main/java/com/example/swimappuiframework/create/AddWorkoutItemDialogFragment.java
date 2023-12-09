@@ -74,12 +74,12 @@ public class AddWorkoutItemDialogFragment extends DialogFragment {
 
     public void sendDataToActivity(WorkoutItem data) {
         if (onDataPassedListener != null) {
-            onDataPassedListener.onDataPassed(data);
+            onDataPassedListener.onDataPassed(data, 0);
             dismiss();
         }
     }
 
     public interface OnDataPassedListener {
-        void onDataPassed(WorkoutItem data); // Define methods to pass data
+        void onDataPassed(WorkoutItem data, int mode); // Define methods to pass data
     }
 }

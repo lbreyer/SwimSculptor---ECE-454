@@ -18,8 +18,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import com.example.swimappuiframework.R;
 
+import com.example.swimappuiframework.R;
 import com.garmin.android.connectiq.ConnectIQ;
 import com.garmin.android.connectiq.IQApp;
 import com.garmin.android.connectiq.IQDevice;
@@ -43,10 +43,12 @@ public class ConnectActivity extends AppCompatActivity {
     Button collectDataButton;
     Button clearDataButton;
     Button vibeButton;
+    Button btnBack;
     TextView dataCounter;
     private boolean isConnected = false;
     private boolean registered = false;
     private boolean collectData = false;
+    private boolean receiving = false;
     private int clearCnt = 0;
     private int linesWritten = 0;
     private int dataReceived = 0;
@@ -58,11 +60,19 @@ public class ConnectActivity extends AppCompatActivity {
         context = this;
         createFile(context, filepath);
         setContentView(R.layout.activity_connect);
+        btnBack = findViewById(R.id.btnBack);
         connectButton = findViewById(R.id.connectButton);
         collectDataButton = findViewById(R.id.collectDataButton);
         clearDataButton = findViewById(R.id.clearDataButton);
         vibeButton = findViewById(R.id.vibeButton);
         dataCounter = findViewById(R.id.dataCounter);
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
         connectIQ = ConnectIQ.getInstance(this, ConnectIQ.IQConnectType.WIRELESS);
         connectIQ.initialize(context, true, new ConnectIQ.ConnectIQListener() {
@@ -98,7 +108,7 @@ public class ConnectActivity extends AppCompatActivity {
     }
 
     protected void updateDataCounter(){
-        dataCounter.setText("Registered: " + registered + "\nPackets Received: " + dataReceived + "\nLines Written To File: " + linesWritten);
+        dataCounter.setText("Registered: " + registered + "\nPackets Received: " + dataReceived + "\nLines Written To File: " + linesWritten+ "\nReceiving: " + receiving);
     }
 
     // Function to connect or disconnect devices
@@ -138,12 +148,14 @@ public class ConnectActivity extends AppCompatActivity {
     }
 
     public void onVibeButtonClick(View view) {
-        try {
-            send(new ArrayList<Object>(Collections.singleton("Vibrate")), 0);
-        } catch (InvalidStateException e) {
-            throw new RuntimeException(e);
-        } catch (ServiceUnavailableException e) {
-            throw new RuntimeException(e);
+        if(devices.size() > 0){
+            try {
+                send(new ArrayList<Object>(Collections.singleton("Vibrate")), 0);
+            } catch (InvalidStateException e) {
+                throw new RuntimeException(e);
+            } catch (ServiceUnavailableException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
@@ -175,7 +187,7 @@ public class ConnectActivity extends AppCompatActivity {
 
     // Function to unpair devices
     private void unpairDevices() {
-        for(int i = 0; i < devices.size(); i++){
+        for(int i = 0; i < apps.size(); i++){
             try {
                 connectIQ.unregisterForApplicationEvents(devices.get(i), apps.get(i));
             } catch (InvalidStateException e) {
@@ -277,6 +289,8 @@ public class ConnectActivity extends AppCompatActivity {
                     // was a SUCCESS. If not then the status will indicate why there
                     // was an issue receiving the message from the Connect IQ application.
                     System.out.println("Received");
+                    receiving = true;
+                    updateDataCounter();
                     if (status == ConnectIQ.IQMessageStatus.SUCCESS) {
                         try {
                             send(new ArrayList<Object>(Collections.singleton("Received")), 0);
@@ -287,20 +301,27 @@ public class ConnectActivity extends AppCompatActivity {
                         }
                         System.out.println(messageData);
                         // Handle the message.
-                        dataReceived++;
-                        updateDataCounter();
                         Object data = messageData.get(0);
                         String msg = null;
                         if(data instanceof ArrayList<?>){
                             if(((ArrayList<?>) data).get(0) instanceof ArrayList<?>){
                                 msg = convertArrayListToJsonString((ArrayList<ArrayList<?>>) (ArrayList<?>) data);
                                 System.out.println(msg);
+                                dataReceived++;
+                                updateDataCounter();
                                 if(collectData && msg != null){
                                     writeToFile(context, filepath, msg);
                                     linesWritten++;
                                     updateDataCounter();
                                 }
                             }
+                            else{
+                                receiving = false;
+                                updateDataCounter();
+                            }
+                        } else{
+                            receiving = false;
+                            updateDataCounter();
                         }
                     }
                 }

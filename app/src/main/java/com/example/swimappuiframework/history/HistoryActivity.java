@@ -43,8 +43,10 @@ public class HistoryActivity extends AppCompatActivity {
         //workoutSummaryItems.add(new WorkoutSummaryItem("11/5/2023", "1:45:36", "2450"));
         //workoutSummaryItems.add(new WorkoutSummaryItem("11/5/2023", "1:34:29", "2100"));
 
-        for (HistoryItem item : items) {
-            workoutSummaryItems.add(new WorkoutSummaryItem(item));
+        if(items != null && !items.isEmpty()){
+            for (HistoryItem item : items) {
+                workoutSummaryItems.add(new WorkoutSummaryItem(item));
+            }
         }
 
         // Create a custom adapter for the list view.

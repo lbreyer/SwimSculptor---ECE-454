@@ -7,6 +7,7 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.swimappuiframework.connect.ConnectActivity;
 import com.example.swimappuiframework.create.CreateActivity;
 import com.example.swimappuiframework.history.HistoryActivity;
 import com.example.swimappuiframework.workout.WorkoutActivity;
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
         Button btnWorkout = findViewById(R.id.btnWorkout);
         Button btnCreate = findViewById(R.id.btnCreate);
         Button btnHistory = findViewById(R.id.btnHistory);
+        Button btnConnect = findViewById(R.id.btnConnect);
 
         btnWorkout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,6 +53,15 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // Launch the History activity
                 Intent intent = new Intent(MainActivity.this, HistoryActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btnConnect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Launch the History activity
+                Intent intent = new Intent(MainActivity.this, ConnectActivity.class);
                 startActivity(intent);
             }
         });

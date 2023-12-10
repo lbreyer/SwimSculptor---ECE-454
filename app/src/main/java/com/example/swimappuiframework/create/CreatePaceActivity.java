@@ -27,6 +27,21 @@ public class CreatePaceActivity extends AppCompatActivity {
 
         databaseViewModel = ((MyApp) getApplication()).getWorkoutItemViewModel();
 
+        // Retrieve arrays from the intent
+        double[][] X = (double[][]) getIntent().getSerializableExtra("X");
+        double[][] Y = (double[][]) getIntent().getSerializableExtra("Y");
+        double[][] Z = (double[][]) getIntent().getSerializableExtra("Z");
+        double[][] Roll = (double[][]) getIntent().getSerializableExtra("Roll");
+        double[][] Pitch = (double[][]) getIntent().getSerializableExtra("Pitch");
+        double[][] Beat = (double[][]) getIntent().getSerializableExtra("Beat");
+
+        if(X != null){
+            System.out.println(X.length);
+            System.out.println(X[0].length);
+        } else{
+            System.out.println("null");
+        }
+
         Button btnBack = findViewById(R.id.btnBack);
         Button btnSave = findViewById(R.id.btnSave);
         EditText editTextName = findViewById(R.id.editTextName);

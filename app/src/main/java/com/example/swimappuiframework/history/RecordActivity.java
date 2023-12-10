@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.content.Context;
 import java.util.Arrays;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -21,6 +23,7 @@ import java.util.Collections;
 import java.util.List;
 
 import com.example.swimappuiframework.R;
+import com.example.swimappuiframework.create.CreatePaceActivity;
 import com.garmin.android.connectiq.ConnectIQ;
 import com.garmin.android.connectiq.IQApp;
 import com.garmin.android.connectiq.IQDevice;
@@ -48,6 +51,7 @@ public class RecordActivity extends AppCompatActivity {
     Button btnR1;
     Button btnR2;
     Button btnR3;
+    Button btnSave;
     TextView connectionText;
     private int enabled = -1;
     private boolean[] writtenTo = {false, false, false};
@@ -70,6 +74,7 @@ public class RecordActivity extends AppCompatActivity {
         btnR1 = findViewById(R.id.btnR1);
         btnR2 = findViewById(R.id.btnR2);
         btnR3 = findViewById(R.id.btnR3);
+        btnSave = findViewById(R.id.btnSave);
         connectionText = findViewById(R.id.connectionText);
         connectionText.setText("Connection Status: Not Connected");
         /*
@@ -148,6 +153,15 @@ public class RecordActivity extends AppCompatActivity {
                 } else{
                     btnR3.setText("Collection Enabled");
                     enabled = 2;
+                }
+            }
+        });
+
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(writtenTo[0] && writtenTo[1] && writtenTo[2]){
+                    goToCreatePaceActivity();
                 }
             }
         });
@@ -507,6 +521,20 @@ public class RecordActivity extends AppCompatActivity {
         double[] result = Arrays.copyOf(array1, array1.length + array2.length);
         System.arraycopy(array2, 0, result, array1.length, array2.length);
         return result;
+    }
+
+    private void goToCreatePaceActivity() {
+        Intent intent = new Intent(this, CreatePaceActivity.class);
+
+        // Pass arrays to the next activity
+        intent.putExtra("X", X);
+        intent.putExtra("Y", Y);
+        intent.putExtra("Z", Z);
+        intent.putExtra("Roll", Roll);
+        intent.putExtra("Pitch", Pitch);
+        intent.putExtra("Beat", Beat);
+
+        startActivity(intent);
     }
 
 }

@@ -14,15 +14,10 @@
         android:theme="@style/Theme.SwimAppUIFramework"
         tools:targetApi="31">
         <activity
-            android:name=".history.RecordActivity"
+            android:name=".create.RecordActivity"
             android:exported="false" />
         <activity
             android:name=".connect.ConnectActivity"
-            android:exported="false"
-            android:label="@string/title_activity_connect"
-            android:theme="@style/Theme.SwimAppUIFramework" />
-        <activity
-            android:name=".create.ConnectActivity"
             android:exported="false"
             android:label="@string/title_activity_connect"
             android:theme="@style/Theme.SwimAppUIFramework" />

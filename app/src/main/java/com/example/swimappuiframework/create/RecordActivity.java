@@ -1,13 +1,9 @@
-package com.example.swimappuiframework.history;
+package com.example.swimappuiframework.create;
 
 import static com.garmin.android.connectiq.IQApp.IQAppStatus.INSTALLED;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.AlertDialog;
 import android.content.Context;
-import java.util.Arrays;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -15,23 +11,22 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.swimappuiframework.R;
-import com.example.swimappuiframework.create.CreatePaceActivity;
 import com.garmin.android.connectiq.ConnectIQ;
 import com.garmin.android.connectiq.IQApp;
 import com.garmin.android.connectiq.IQDevice;
 import com.garmin.android.connectiq.exception.InvalidStateException;
 import com.garmin.android.connectiq.exception.ServiceUnavailableException;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class RecordActivity extends AppCompatActivity {
 

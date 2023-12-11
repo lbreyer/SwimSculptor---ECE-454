@@ -11,12 +11,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.swimappuiframework.MainActivity;
 import com.example.swimappuiframework.MyApp;
 import com.example.swimappuiframework.R;
 import com.example.swimappuiframework.data.DataHandler;
 import com.example.swimappuiframework.data.Pace;
 import com.example.swimappuiframework.data.WorkoutItem;
 import com.example.swimappuiframework.database.DatabaseViewModel;
+import com.example.swimappuiframework.create.RecordActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,8 +53,18 @@ public class CreatePaceActivity extends AppCompatActivity {
 
         Button btnBack = findViewById(R.id.btnBack);
         Button btnSave = findViewById(R.id.btnSave);
+        Button btnRecord = findViewById(R.id.btnRecord);
         EditText editTextName = findViewById(R.id.editTextName);
         EditText editTextNotes = findViewById(R.id.editTextNotes);
+
+        btnRecord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Launch the History activity
+                Intent intent = new Intent(CreatePaceActivity.this, RecordActivity.class);
+                startActivity(intent);
+            }
+        });
 
         if (hasData) {
             DataHandler handler = new DataHandler();

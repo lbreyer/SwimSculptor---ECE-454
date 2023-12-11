@@ -30,16 +30,6 @@ public class HistoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_history);
 
         Button btnBack = findViewById(R.id.btnBack);
-        Button btnRecord = findViewById(R.id.btnRecord);
-
-        btnRecord.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Launch the History activity
-                Intent intent = new Intent(HistoryActivity.this, RecordActivity.class);
-                startActivity(intent);
-            }
-        });
 
         ListView listViewWorkouts = findViewById(R.id.listViewWorkouts);
 

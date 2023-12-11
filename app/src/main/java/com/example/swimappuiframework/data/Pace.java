@@ -20,15 +20,31 @@ public class Pace implements Serializable {
     @ColumnInfo(name = "notes")
     private String notes;
 
-    @ColumnInfo(name = "pace")
-    private String pace;
+    @ColumnInfo(name = "xPace")
+    private String xPace;
+
+    @ColumnInfo(name = "yPace")
+    private String yPace;
+
+    @ColumnInfo(name = "zPace")
+    private String zPace;
+
+    @ColumnInfo(name = "rollPace")
+    private String rollPace;
+
+    @ColumnInfo(name = "pitchPace")
+    private String pitchPace;
 
     public Pace() {}
 
-    public Pace(String name, String notes, List<Double> pace) {
+    public Pace(String name, String notes, List<Double> x, List<Double> y, List<Double> z, List<Double> roll, List<Double> pitch) {
         this.name = name;
         this.notes = notes == null ? "" : notes;
-        this.pace = convertListToString(pace);
+        this.xPace = convertListToString(x);
+        this.yPace = convertListToString(y);
+        this.zPace = convertListToString(z);
+        this.rollPace = convertListToString(roll);
+        this.pitchPace = convertListToString(pitch);
     }
 
     public static String convertListToString(List<Double> doubleList) {
@@ -59,11 +75,35 @@ public class Pace implements Serializable {
         this.notes = notes;
     }
 
-    public List<Double> getPaceList() { return convertStringToList(pace); }
-    public void setPace(List<Double> pace) { this.pace = convertListToString(pace); }
+    public List<Double> getXPaceList() { return convertStringToList(xPace); }
+    public void setXPaceList(List<Double> pace) { this.xPace = convertListToString(pace); }
 
-    // DO NOT USE THIS METHOD
-    public String getPace() { return pace; }
-    // DO NOT USE THIS METHOD
-    public void setPace(String pace) { this.pace = pace; }
+    public List<Double> getYPaceList() { return convertStringToList(yPace); }
+    public void setYPaceList(List<Double> pace) { this.yPace = convertListToString(pace); }
+
+    public List<Double> getZPaceList() { return convertStringToList(zPace); }
+    public void setZPaceList(List<Double> pace) { this.zPace = convertListToString(pace); }
+
+    public List<Double> getRollPaceList() { return convertStringToList(rollPace); }
+    public void setRollPaceList(List<Double> pace) { this.rollPace = convertListToString(pace); }
+
+    public List<Double> getPitchPaceList() { return convertStringToList(pitchPace); }
+    public void setPitchPaceList(List<Double> pace) { this.pitchPace = convertListToString(pace); }
+
+
+    // DO NOT USE
+    public String getXPace() { return xPace; }
+    public void setXPace(String pace) { this.xPace = pace; }
+
+    public String getYPace() { return yPace; }
+    public void setYPace(String pace) { this.yPace = pace; }
+
+    public String getZPace() { return zPace; }
+    public void setZPace(String pace) { this.zPace = pace; }
+
+    public String getRollPace() { return rollPace; }
+    public void setRollPace(String pace) { this.rollPace = pace; }
+
+    public String getPitchPace() { return pitchPace; }
+    public void setPitchPace(String pace) { this.pitchPace = pace; }
 }

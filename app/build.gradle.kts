@@ -32,6 +32,7 @@ android {
     buildFeatures {
         viewBinding = true
     }
+    buildToolsVersion = "34.0.0"
 }
 
 dependencies {
@@ -50,4 +51,6 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel:2.6.2")
     implementation("androidx.lifecycle:lifecycle-livedata:2.6.2")
     implementation("com.garmin.connectiq:ciq-companion-app-sdk:2.0.3@aar")
+    implementation("org.apache.commons:commons-math3:3.6.1")
+
 }

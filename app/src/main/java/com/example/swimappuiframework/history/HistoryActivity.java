@@ -1,6 +1,7 @@
 package com.example.swimappuiframework.history;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,16 +14,21 @@ import com.example.swimappuiframework.MainActivity;
 import com.example.swimappuiframework.MyApp;
 import com.example.swimappuiframework.R;
 import com.example.swimappuiframework.data.HistoryItem;
+import com.example.swimappuiframework.data.Workout;
 import com.example.swimappuiframework.data.WorkoutItem;
 import com.example.swimappuiframework.data.WorkoutSummaryItem;
 import com.example.swimappuiframework.database.DatabaseViewModel;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
 public class HistoryActivity extends AppCompatActivity {
 
     private DatabaseViewModel databaseViewModel;
+    private List<HistoryItem> retrievedHistoryList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,13 +43,32 @@ public class HistoryActivity extends AppCompatActivity {
         ArrayList<WorkoutSummaryItem> workoutSummaryItems = new ArrayList<>();
 
         databaseViewModel = ((MyApp) getApplication()).getWorkoutItemViewModel();
-
         List<HistoryItem> items =  databaseViewModel.getAllHistoryItems().getValue();
 
         // Populate the list with workout data.
         //workoutSummaryItems.add(new WorkoutSummaryItem("11/4/2023", "2:15:56", "2800"));
         //workoutSummaryItems.add(new WorkoutSummaryItem("11/5/2023", "1:45:36", "2450"));
         //workoutSummaryItems.add(new WorkoutSummaryItem("11/5/2023", "1:34:29", "2100"));
+
+
+//        // Retrieve the stored JSON string from SharedPreferences
+//        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+//        String json = sharedPreferences.getString("historyListKey", null);
+//
+//        // If the JSON string exists
+//        if (json != null) {
+//            // Convert the JSON string back to a List<Workout>
+//            Gson gson = new Gson();
+//            Type type = new TypeToken<List<HistoryItem>>() {
+//            }.getType();
+//            retrievedHistoryList = gson.fromJson(json, type);
+//        }
+//
+//        if(retrievedHistoryList != null && !retrievedHistoryList.isEmpty()){
+//            for (HistoryItem item : retrievedHistoryList) {
+//                workoutSummaryItems.add(new WorkoutSummaryItem(item));
+//            }
+//        }
 
         if(items != null && !items.isEmpty()){
             for (HistoryItem item : items) {

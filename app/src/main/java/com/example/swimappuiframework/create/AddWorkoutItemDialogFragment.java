@@ -1,6 +1,9 @@
 package com.example.swimappuiframework.create;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import android.view.LayoutInflater;
@@ -16,10 +19,14 @@ import android.widget.Button;
 
 import com.example.swimappuiframework.MyApp;
 import com.example.swimappuiframework.R;
+import com.example.swimappuiframework.data.HistoryItem;
 import com.example.swimappuiframework.data.Workout;
 import com.example.swimappuiframework.data.WorkoutItem;
 import com.example.swimappuiframework.database.DatabaseViewModel;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.List;
 
 public class AddWorkoutItemDialogFragment extends DialogFragment {
@@ -41,6 +48,7 @@ public class AddWorkoutItemDialogFragment extends DialogFragment {
         mRecyclerView = view.findViewById(R.id.recyclerview);
        //  workoutItemViewModel.getAllWorkoutItems().;
         List<WorkoutItem> items =  databaseViewModel.getAllWorkoutItems().getValue();
+
         WorkoutItemAdapter adapter = new WorkoutItemAdapter(view.getContext(), items, this);
         mRecyclerView.setAdapter(adapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));

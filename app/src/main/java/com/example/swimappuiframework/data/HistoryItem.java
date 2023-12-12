@@ -53,7 +53,6 @@ public class HistoryItem implements Serializable {
 
     public String getCorrValues() { return corrValues; }
     public void setCorrValues(String values) { this.corrValues = values; }
-
     public List<List<List<Double>>> getCorrValuesList() {
         Gson gson = new Gson();
         Type type = new TypeToken<List<List<List<Double>>>>() {}.getType();

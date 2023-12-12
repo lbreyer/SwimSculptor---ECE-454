@@ -16,6 +16,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.swimappuiframework.MyApp;
 import com.example.swimappuiframework.R;
+import com.example.swimappuiframework.data.DataHandler;
+import com.example.swimappuiframework.data.HistoryItem;
+import com.example.swimappuiframework.data.Pace;
 import com.example.swimappuiframework.data.Workout;
 import com.example.swimappuiframework.data.WorkoutItem;
 import com.example.swimappuiframework.database.DatabaseViewModel;
@@ -32,6 +35,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class ActiveWorkoutActivity extends AppCompatActivity {
 
@@ -64,7 +71,10 @@ public class ActiveWorkoutActivity extends AppCompatActivity {
 
     private ActiveWorkoutAdapter mAdapter;
 
-    private List<List<Double>> corrValues;
+    private List<List<List<Double>>> corrValues;
+
+    private Timer timer;
+    private int secondsPassed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +103,20 @@ public class ActiveWorkoutActivity extends AppCompatActivity {
 
         corrValues = new ArrayList<>();
 
+        timer = new Timer();
+        secondsPassed = 0;
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                secondsPassed++;
+            }
+
+            public int getSecondsPassed() {
+                return secondsPassed;
+            }
+        };
+        timer.scheduleAtFixedRate(task, 1000, 1000);
+
         for(Integer i : ints){
             WorkoutItem data = items.get(i - 1);
             workoutItems.add(data);
@@ -115,7 +139,19 @@ public class ActiveWorkoutActivity extends AppCompatActivity {
         btnFinish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO: Add Finish stuff
+                HistoryItem item = new HistoryItem();
+                item.setWorkoutId(workout.id);
+                LocalDate currentDate = LocalDate.now();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy"); // Change the pattern as needed
+                String formattedDate = currentDate.format(formatter);
+                item.setDate(formattedDate);
+                timer.cancel();
+                item.setTime(secondsPassed);
+                item.setCorrValues(corrValues);
+
+                databaseViewModel.insert(item);
+
+                onBackPressed();
             }
         });
 
@@ -310,8 +346,41 @@ public class ActiveWorkoutActivity extends AppCompatActivity {
                 //Put some stuff here if you want something special to happen
             }
         }
+
+        //TODO: Add PACE to WORKOUTITEM
+        Pace pace = new Pace();
+
+        double[][] currentData = itemList.get(currentPackage);
+
+
+        if (currentData != null) {
+            DataHandler handler = new DataHandler();
+
+            List<List<Double>> listData = handler.arrayToList(currentData);
+
+            List<Integer> turns = handler.identifyTurns(listData.get(2));
+            List<Integer> strokes = handler.identifyStrokes(listData.get(1));
+
+            List<List<Double>> xStrokes = handler.normalizeStrokes(handler.parseStrokes(listData.get(0), strokes, turns));
+            List<List<Double>> yStrokes = handler.normalizeStrokes(handler.parseStrokes(listData.get(1), strokes, turns));
+            List<List<Double>> zStrokes = handler.normalizeStrokes(handler.parseStrokes(listData.get(2), strokes, turns));
+            List<List<Double>> rollStrokes = handler.normalizeStrokes(handler.parseStrokes(listData.get(3), strokes, turns));
+            List<List<Double>> pitchStrokes = handler.normalizeStrokes(handler.parseStrokes(listData.get(4), strokes, turns));
+
+            List<List<Double>> currCorrValues = new ArrayList<>();
+            currCorrValues.add(handler.calcFullCorrelation(xStrokes, pace.getXPaceList()));
+            currCorrValues.add(handler.calcFullCorrelation(yStrokes, pace.getYPaceList()));
+            currCorrValues.add(handler.calcFullCorrelation(zStrokes, pace.getZPaceList()));
+            currCorrValues.add(handler.calcFullCorrelation(rollStrokes, pace.getRollPaceList()));
+            currCorrValues.add(handler.calcFullCorrelation(pitchStrokes, pace.getPitchPaceList()));
+
+            corrValues.add(currCorrValues);
+        }
+
         currentPackage++; //next index for list
         receiving = false;
+
+
     }
 
     public static void writeToFile(Context context, String fileName, String data) {

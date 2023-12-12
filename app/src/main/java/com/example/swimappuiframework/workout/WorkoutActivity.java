@@ -30,12 +30,12 @@ public class WorkoutActivity extends AppCompatActivity {
             }
         });
 
-        // Handle the "Select Workout" button click here
 
         btnSelectWorkout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Implement the logic to select a workout
+                Intent intent = new Intent(WorkoutActivity.this, SelectWorkoutActivity.class);
+                startActivity(intent);
             }
         });
 

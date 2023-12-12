@@ -1,6 +1,6 @@
 package com.example.swimappuiframework.create;
 
-import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -18,8 +18,11 @@ import com.example.swimappuiframework.R;
 import com.example.swimappuiframework.data.Workout;
 import com.example.swimappuiframework.data.WorkoutItem;
 import com.example.swimappuiframework.database.DatabaseViewModel;
-import com.example.swimappuiframework.workout.ActiveWorkoutActivity;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CreateWorkoutActivity extends AppCompatActivity implements AddWorkoutItemDialogFragment.OnDataPassedListener, SelectedWorkoutItemFragment.OnDataPassedListener {
@@ -86,8 +89,36 @@ public class CreateWorkoutActivity extends AppCompatActivity implements AddWorko
                 workout.setName(name);
                 workout.setNotes(notes);
                 workout.setPojoWorkoutItems(mAdapter.mSelectedWorkoutItemList);
+                workout.setTotalDistance(mAdapter.mSelectedWorkoutItemList);
 
                 databaseViewModel.insert(workout);
+
+                // Retrieve the existing list of workouts from SharedPreferences
+                SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+                Gson gson = new Gson();
+                String json = sharedPreferences.getString("workoutListKey", null);
+
+                List<Workout> workoutList;
+
+                // If the list doesn't exist yet, create a new one
+                if (json == null) {
+                    workoutList = new ArrayList<>();
+                } else {
+                    // Convert the JSON string back to a List<Workout>
+                    Type type = new TypeToken<List<Workout>>() {}.getType();
+                    workoutList = gson.fromJson(json, type);
+                }
+
+                // Add the new Workout to the list
+                workoutList.add(workout);
+
+                // Convert the updated list to JSON
+                String updatedJson = gson.toJson(workoutList);
+
+                // Save the updated JSON string back to SharedPreferences
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("workoutListKey", updatedJson);
+                editor.apply();
 
                 onBackPressed();
             }

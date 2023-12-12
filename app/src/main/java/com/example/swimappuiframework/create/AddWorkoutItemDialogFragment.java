@@ -16,6 +16,7 @@ import android.widget.Button;
 
 import com.example.swimappuiframework.MyApp;
 import com.example.swimappuiframework.R;
+import com.example.swimappuiframework.data.Workout;
 import com.example.swimappuiframework.data.WorkoutItem;
 import com.example.swimappuiframework.database.DatabaseViewModel;
 
@@ -43,8 +44,6 @@ public class AddWorkoutItemDialogFragment extends DialogFragment {
         WorkoutItemAdapter adapter = new WorkoutItemAdapter(view.getContext(), items, this);
         mRecyclerView.setAdapter(adapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-
-        databaseViewModel = ((MyApp) requireActivity().getApplication()).getWorkoutItemViewModel();
 
         Button btnClose = view.findViewById(R.id.btnClose);
 

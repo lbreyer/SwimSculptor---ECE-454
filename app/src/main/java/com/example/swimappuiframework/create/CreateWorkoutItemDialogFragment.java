@@ -14,8 +14,12 @@ import android.widget.EditText;
 
 import com.example.swimappuiframework.MyApp;
 import com.example.swimappuiframework.R;
+import com.example.swimappuiframework.data.Workout;
 import com.example.swimappuiframework.data.WorkoutItem;
 import com.example.swimappuiframework.database.DatabaseViewModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CreateWorkoutItemDialogFragment extends DialogFragment {
 

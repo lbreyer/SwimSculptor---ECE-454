@@ -24,12 +24,16 @@ public class Workout implements Serializable {
     @ColumnInfo(name = "workoutItems")
     private String pojoWorkoutItems;
 
+    @ColumnInfo(name = "distance")
+    private int totalDistance;
+
     public Workout() {}
 
     public Workout(String name, String notes, List<WorkoutItem> workoutItems) {
         this.name = name;
         this.notes = notes;
         this.pojoWorkoutItems = listToPojo(workoutItems);
+        this.totalDistance = calcTotalDistance(workoutItems);
     }
 
     private String listToPojo(List<WorkoutItem> workoutItems) {
@@ -38,6 +42,14 @@ public class Workout implements Serializable {
             wi += String.valueOf(item.id) + " ";
         }
         return wi;
+    }
+
+    private int calcTotalDistance(List<WorkoutItem> items) {
+        int distance = 0;
+        for (WorkoutItem item : items) {
+            distance += item.getCount() * item.getDistance();
+        }
+        return distance;
     }
 
     public String getName() {
@@ -63,4 +75,9 @@ public class Workout implements Serializable {
     public void setPojoWorkoutItems(String workoutItems) {
         this.pojoWorkoutItems = workoutItems;
     }
+
+    public int getTotalDistance() { return totalDistance; }
+    public void setTotalDistance(int totalDistance) { this.totalDistance = totalDistance; }
+
+    public void setTotalDistance(List<WorkoutItem> items) { this.totalDistance = calcTotalDistance(items); }
 }

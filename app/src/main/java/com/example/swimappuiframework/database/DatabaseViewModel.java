@@ -20,7 +20,6 @@ public class DatabaseViewModel extends AndroidViewModel {
     private LiveData<List<WorkoutItem>> allWorkoutItems;
     private LiveData<List<Workout>> allWorkouts;
     private LiveData<List<HistoryItem>> allHistoryItems;
-
     private LiveData<List<Pace>> allPaces;
 
     public DatabaseViewModel(@NonNull Application application) {
@@ -36,9 +35,7 @@ public class DatabaseViewModel extends AndroidViewModel {
         repository.insert(workoutItem);
     }
 
-    public void insert(Workout workout) {
-        repository.insert(workout);
-    }
+    public void insert(Workout workout) { repository.insert(workout); }
 
     public void insert(HistoryItem historyItem) { repository.insert(historyItem); }
 

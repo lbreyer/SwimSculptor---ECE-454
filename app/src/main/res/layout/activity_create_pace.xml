@@ -8,12 +8,17 @@
 
     <Button
         android:id="@+id/btnBack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
         android:text="Back"
         android:layout_margin="16dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        android:textColor="@color/textBlack"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:background="@drawable/round_rect_button"
+        android:layout_centerHorizontal="true"
         />
 
     <EditText
@@ -23,6 +28,11 @@
         android:hint="Name"
         android:layout_below="@id/btnBack"
         android:layout_margin="16dp"
+        android:textColor="@color/textBlack"
+        android:textSize="24dp"
+        android:textStyle="bold"
+        android:backgroundTint="@color/textBlack"
+        android:textColorHint="@color/textBlack"
         />
 
     <EditText
@@ -32,24 +42,39 @@
         android:hint="Notes"
         android:layout_below="@id/editTextName"
         android:layout_margin="16dp"
+        android:textColor="@color/textBlack"
+        android:textSize="24dp"
+        android:textStyle="bold"
+        android:backgroundTint="@color/textBlack"
+        android:textColorHint="@color/textBlack"
         />
 
     <Button
         android:id="@+id/btnRecord"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
         android:text="Record"
         android:layout_below="@id/editTextNotes"
         android:layout_margin="16dp"
+        android:textColor="@color/textBlack"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:background="@drawable/round_rect_button"
         />
 
     <Button
         android:id="@+id/btnSave"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
         android:text="Save"
+        android:layout_alignParentEnd="true"
         android:layout_below="@id/btnRecord"
         android:layout_margin="16dp"
+        android:textColor="@color/textBlack"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:background="@drawable/round_rect_button"
+        android:layout_marginTop="36dp"
         />
 
 </RelativeLayout>

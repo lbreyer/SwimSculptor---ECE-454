@@ -4,6 +4,7 @@ import static com.garmin.android.connectiq.IQApp.IQAppStatus.INSTALLED;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -27,10 +28,13 @@ import com.garmin.android.connectiq.IQApp;
 import com.garmin.android.connectiq.IQDevice;
 import com.garmin.android.connectiq.exception.InvalidStateException;
 import com.garmin.android.connectiq.exception.ServiceUnavailableException;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -98,8 +102,25 @@ public class ActiveWorkoutActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         String pojo = workout.getPojoWorkoutItems();
-        List<Integer> ints = convertStringToList(pojo);
+        List<Integer> ints = (pojo != null && !pojo.isEmpty()) ? convertStringToList(pojo) : new ArrayList<>();
         List<WorkoutItem> items = databaseViewModel.getAllWorkoutItems().getValue();
+
+        List<WorkoutItem> retrievedItems = new ArrayList<>();
+        // Retrieve the stored JSON string from SharedPreferences
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        String json = sharedPreferences.getString("workoutItemListKey", null);
+
+        // If the JSON string exists
+        if (json != null) {
+            Gson gson = new Gson();
+            Type type = new TypeToken<List<WorkoutItem>>() {
+            }.getType();
+            retrievedItems = gson.fromJson(json, type);
+        }
+
+        if (items == null || !items.isEmpty()) {
+            items = retrievedItems;
+        }
 
         corrValues = new ArrayList<>();
 
@@ -118,9 +139,12 @@ public class ActiveWorkoutActivity extends AppCompatActivity {
         timer.scheduleAtFixedRate(task, 1000, 1000);
 
         for(Integer i : ints){
-            WorkoutItem data = items.get(i - 1);
-            workoutItems.add(data);
-            mAdapter.mSelectedWorkoutItemList.add(data);
+            for (int j = 0; j < items.size(); j++) {
+                if (items.get(j).id == i) {
+                    workoutItems.add(items.get(j));
+                    mAdapter.mSelectedWorkoutItemList.add(items.get(j));
+                }
+            }
         }
         if(workoutItems.size() > 0){
             currentItem = 0;
@@ -347,8 +371,7 @@ public class ActiveWorkoutActivity extends AppCompatActivity {
             }
         }
 
-        //TODO: Add PACE to WORKOUTITEM
-        Pace pace = new Pace();
+        Pace pace = workoutItems.get(currentItem).getPaceObject();
 
         double[][] currentData = itemList.get(currentPackage);
 

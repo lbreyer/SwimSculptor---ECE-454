@@ -69,12 +69,12 @@ public class CreateWorkoutActivity extends AppCompatActivity implements AddWorko
         });
 
         // Observe changes in the workout items
-        databaseViewModel.getAllWorkoutItems().observe(this, new Observer<List<WorkoutItem>>() {
-            @Override
-            public void onChanged(List<WorkoutItem> workoutItems) {
-                updateWorkoutItemsUI(workoutItems);
-            }
-        });
+//        databaseViewModel.getAllWorkoutItems().observe(this, new Observer<List<WorkoutItem>>() {
+//            @Override
+//            public void onChanged(List<WorkoutItem> workoutItems) {
+//                updateWorkoutItemsUI(workoutItems);
+//            }
+//        });
         CreateWorkoutActivity activity = this;
 
         btnSave.setOnClickListener(new View.OnClickListener() {
@@ -130,17 +130,17 @@ public class CreateWorkoutActivity extends AppCompatActivity implements AddWorko
         dialogFragment.show(getSupportFragmentManager(), "add_workout_item_dialog");
     }
 
-    private void updateWorkoutItemsUI(List<WorkoutItem> workoutItems) {
-        LinearLayout llWorkoutItemsContainer = findViewById(R.id.llWorkoutItemsContainer);
-        llWorkoutItemsContainer.removeAllViews();
-
-        for (WorkoutItem workoutItem : workoutItems) {
-            // Create a TextView for each workout item
-            TextView textView = new TextView(this);
-            textView.setText(workoutItem.getName());
-            llWorkoutItemsContainer.addView(textView);
-        }
-    }
+//    private void updateWorkoutItemsUI(List<WorkoutItem> workoutItems) {
+//        LinearLayout llWorkoutItemsContainer = findViewById(R.id.llWorkoutItemsContainer);
+//        llWorkoutItemsContainer.removeAllViews();
+//
+//        for (WorkoutItem workoutItem : workoutItems) {
+//            // Create a TextView for each workout item
+//            TextView textView = new TextView(this);
+//            textView.setText(workoutItem.getName());
+//            llWorkoutItemsContainer.addView(textView);
+//        }
+//    }
 
     @Override
     public void onDataPassed(WorkoutItem data, int mode) {

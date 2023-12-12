@@ -27,6 +27,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AddWorkoutItemDialogFragment extends DialogFragment {
@@ -48,6 +49,23 @@ public class AddWorkoutItemDialogFragment extends DialogFragment {
         mRecyclerView = view.findViewById(R.id.recyclerview);
        //  workoutItemViewModel.getAllWorkoutItems().;
         List<WorkoutItem> items =  databaseViewModel.getAllWorkoutItems().getValue();
+
+        List<WorkoutItem> retrievedItems = new ArrayList<>();
+        // Retrieve the stored JSON string from SharedPreferences
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        String json = sharedPreferences.getString("workoutItemListKey", null);
+
+        // If the JSON string exists
+        if (json != null) {
+            Gson gson = new Gson();
+            Type type = new TypeToken<List<WorkoutItem>>() {
+            }.getType();
+            retrievedItems = gson.fromJson(json, type);
+        }
+
+        if (items == null || !items.isEmpty()) {
+            items = retrievedItems;
+        }
 
         WorkoutItemAdapter adapter = new WorkoutItemAdapter(view.getContext(), items, this);
         mRecyclerView.setAdapter(adapter);

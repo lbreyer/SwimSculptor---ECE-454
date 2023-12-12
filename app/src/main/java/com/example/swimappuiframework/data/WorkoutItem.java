@@ -6,7 +6,12 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import java.io.Serializable;
+import java.lang.reflect.Type;
+import java.util.List;
 
 @Entity(tableName = "workout_items")
 public class WorkoutItem implements Serializable {
@@ -71,6 +76,16 @@ public class WorkoutItem implements Serializable {
     }
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public Pace getPaceObject() {
+        Gson gson = new Gson();
+        Type type = new TypeToken<Pace>() {}.getType();
+        return gson.fromJson(pace, type);
+    }
+    public void setPace(Pace pace) {
+        Gson gson = new Gson();
+        this.pace = gson.toJson(pace);
     }
 
 }

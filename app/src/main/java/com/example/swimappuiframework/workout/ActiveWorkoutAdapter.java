@@ -47,9 +47,9 @@ public class ActiveWorkoutAdapter extends
     @Override
     public void onBindViewHolder(@NonNull ActiveWorkoutAdapter.CreateWorkoutViewHolder holder, int position) {
         WorkoutItem current = mSelectedWorkoutItemList.get(position);
-        String text = "Name: " + current.getName() + "\n" + current.getCount() + "x" + current.getDistance() + "s";
+        String text = current.getName() + "\n" + current.getCount() + "x" + current.getDistance() + "s";
         if(!current.getPace().equals("")){
-            text = text + " (" + current.getPace() + ")";
+            text = text + " (" + current.getPaceObject().getName() + ")";
         }
         if(!current.getNotes().equals("")){
             text = text + "\nNotes: " + current.getNotes();

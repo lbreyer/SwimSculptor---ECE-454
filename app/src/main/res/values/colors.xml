@@ -2,4 +2,8 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="backgroundBlue">#1a9988</color>
+    <color name="buttonOrange">#e8883b</color>
+    <color name="textBlack">#000000</color>
+    <color name="mainBackground">#4ba1be</color>
 </resources>

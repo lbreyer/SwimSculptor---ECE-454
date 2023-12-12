@@ -46,7 +46,7 @@ public class WorkoutItemAdapter extends
 
     @Override
     public int getItemCount() {
-        return mWorkoutItemList.size();
+        return (mWorkoutItemList != null && !mWorkoutItemList.isEmpty()) ? mWorkoutItemList.size() : 0;
     }
 
     public class WorkoutViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

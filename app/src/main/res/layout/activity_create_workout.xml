@@ -5,12 +5,17 @@
 
     <Button
         android:id="@+id/btnBack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
         android:text="Back"
         android:layout_margin="16dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        android:textColor="@color/textBlack"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:background="@drawable/round_rect_button"
+        android:layout_centerHorizontal="true"
         />
 
     <EditText
@@ -20,6 +25,11 @@
         android:layout_below="@id/btnBack"
         android:hint="Workout Name"
         android:layout_margin="16dp"
+        android:textColor="@color/textBlack"
+        android:textSize="24dp"
+        android:textStyle="bold"
+        android:backgroundTint="@color/textBlack"
+        android:textColorHint="@color/textBlack"
         />
 
     <EditText
@@ -29,42 +39,46 @@
         android:layout_below="@id/editTextWorkoutName"
         android:hint="Notes"
         android:layout_margin="16dp"
+        android:textColor="@color/textBlack"
+        android:textSize="24dp"
+        android:textStyle="bold"
+        android:backgroundTint="@color/textBlack"
+        android:textColorHint="@color/textBlack"
         />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/editTextNotes"
-        android:padding="8dp" />
+        android:layout_below="@id/editTextNotes"/>
 
     <Button
         android:id="@+id/btnAddItem"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
         android:text="Add Item"
         android:layout_below="@id/recyclerview"
         android:layout_margin="16dp"
-        />
-
-    <!-- Placeholder for Workout Items -->
-    <LinearLayout
-        android:id="@+id/llWorkoutItemsContainer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_below="@id/btnAddItem"
-        android:layout_margin="16dp"
+        android:textColor="@color/textBlack"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:background="@drawable/round_rect_button"
+        android:layout_marginTop="24dp"
         />
 
     <Button
         android:id="@+id/btnSave"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
         android:text="Save"
         android:layout_alignParentEnd="true"
-        android:layout_below="@id/llWorkoutItemsContainer"
+        android:layout_below="@id/btnAddItem"
         android:layout_margin="16dp"
+        android:textColor="@color/textBlack"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:background="@drawable/round_rect_button"
+        android:layout_marginTop="36dp"
         />
 
 </RelativeLayout>

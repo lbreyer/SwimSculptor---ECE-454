@@ -64,6 +64,8 @@ public class ActiveWorkoutActivity extends AppCompatActivity {
 
     private ActiveWorkoutAdapter mAdapter;
 
+    private List<List<Double>> corrValues;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,6 +90,8 @@ public class ActiveWorkoutActivity extends AppCompatActivity {
         String pojo = workout.getPojoWorkoutItems();
         List<Integer> ints = convertStringToList(pojo);
         List<WorkoutItem> items = databaseViewModel.getAllWorkoutItems().getValue();
+
+        corrValues = new ArrayList<>();
 
         for(Integer i : ints){
             WorkoutItem data = items.get(i - 1);

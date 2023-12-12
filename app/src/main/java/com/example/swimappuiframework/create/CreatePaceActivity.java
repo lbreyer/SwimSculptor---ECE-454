@@ -19,6 +19,7 @@ import com.example.swimappuiframework.data.Pace;
 import com.example.swimappuiframework.data.WorkoutItem;
 import com.example.swimappuiframework.database.DatabaseViewModel;
 import com.example.swimappuiframework.create.RecordActivity;
+import com.example.swimappuiframework.workout.ActiveWorkoutActivity;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -17,6 +17,9 @@
             android:name=".create.RecordActivity"
             android:exported="false" />
         <activity
+            android:name=".workout.ActiveWorkoutActivity"
+            android:exported="false" />
+        <activity
             android:name=".connect.ConnectActivity"
             android:exported="false"
             android:label="@string/title_activity_connect"

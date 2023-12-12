@@ -245,9 +245,13 @@ public class ActiveWorkoutActivity extends AppCompatActivity {
                     // was a SUCCESS. If not then the status will indicate why there
                     // was an issue receiving the message from the Connect IQ application.
                     System.out.println("Received");
-                    receiving = true;
                     //updateDataCounter();
                     if (status == ConnectIQ.IQMessageStatus.SUCCESS) {
+                        if(!receiving){
+                            itemList.add(new double[6][0]);
+                        }
+                        receiving = true;
+
                         try {
                             send(new ArrayList<Object>(Collections.singleton("Received")), 0);
                         } catch (InvalidStateException e) {
@@ -265,26 +269,10 @@ public class ActiveWorkoutActivity extends AppCompatActivity {
                                 dataReceived++;
                             }
                             else{
-                                for(int i = 0; i < 6; i++){
-                                    for(int j = 0; j < itemList.get(currentItem)[i].length; j++){
-                                        System.out.println(itemList.get(currentItem)[i][j]);
-                                    }
-                                    System.out.println(itemList.get(currentItem)[i].length);
-                                }
-                                itemList.add(new double[6][0]);
-                                currentItem++;
-                                receiving = false;
+                                onAllDataReceived();
                             }
                         } else{
-                            for(int i = 0; i < 6; i++){
-                                for(int j = 0; j < itemList.get(currentItem)[i].length; j++){
-                                    System.out.println(itemList.get(currentItem)[i][j]);
-                                }
-                                System.out.println(itemList.get(currentItem)[i].length);
-                            }
-                            itemList.add(new double[6][0]);
-                            currentItem++;
-                            receiving = false;
+                            onAllDataReceived();
                         }
                     }
                 }
@@ -295,6 +283,14 @@ public class ActiveWorkoutActivity extends AppCompatActivity {
         } catch (InvalidStateException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void onAllDataReceived() {
+
+        currentItem++; //next index for list
+        receiving = false;
+
+
     }
 
     public static void writeToFile(Context context, String fileName, String data) {

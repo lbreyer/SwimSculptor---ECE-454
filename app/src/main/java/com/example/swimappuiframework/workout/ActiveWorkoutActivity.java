@@ -4,7 +4,6 @@ import static com.garmin.android.connectiq.IQApp.IQAppStatus.INSTALLED;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,8 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.swimappuiframework.MyApp;
 import com.example.swimappuiframework.R;
-import com.example.swimappuiframework.create.CWWorkoutItemAdapter;
-import com.example.swimappuiframework.create.CreatePaceActivity;
 import com.example.swimappuiframework.data.Workout;
 import com.example.swimappuiframework.data.WorkoutItem;
 import com.example.swimappuiframework.database.DatabaseViewModel;
@@ -31,7 +28,6 @@ import com.garmin.android.connectiq.exception.ServiceUnavailableException;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -40,16 +36,21 @@ import java.util.List;
 public class ActiveWorkoutActivity extends AppCompatActivity {
 
     ConnectIQ connectIQ;
+
+    String currentPace;
+    int currentCnt;
+    int currentItem;
     String filepath = "data.txt";
     String MY_APPLICATION_ID = "3e9897c2-5113-4f53-92df-f8c83ff08f67";
     ArrayList <IQDevice> devices = new ArrayList();
     ArrayList <IQApp> apps = new ArrayList();
+    ArrayList <WorkoutItem> workoutItems = new ArrayList<>();
     Context context;
     ArrayList <double[][]> itemList = new ArrayList();
     Button btnBack;
     Button btnFinish;
     TextView connectionText;
-    private int currentItem = 0;
+    private int currentPackage = 0;
     Workout workout;
     DatabaseViewModel databaseViewModel;
     private boolean isConnected = false;
@@ -90,7 +91,13 @@ public class ActiveWorkoutActivity extends AppCompatActivity {
 
         for(Integer i : ints){
             WorkoutItem data = items.get(i - 1);
+            workoutItems.add(data);
             mAdapter.mSelectedWorkoutItemList.add(data);
+        }
+        if(workoutItems.size() > 0){
+            currentItem = 0;
+            currentCnt = 0;
+            currentPace = workoutItems.get(currentItem).getPace();
         }
 
 
@@ -286,11 +293,21 @@ public class ActiveWorkoutActivity extends AppCompatActivity {
     }
 
     public void onAllDataReceived() {
-
-        currentItem++; //next index for list
+        currentCnt++;
+        if(currentCnt >= workoutItems.get(currentItem).getCount()){
+            currentItem++;
+            if(currentItem < workoutItems.size()){
+                //There are more workout items to go through
+                currentPace = workoutItems.get(currentItem).getPace();
+                currentCnt = 0;
+            }
+            else{
+                //There are no more workout items
+                //Put some stuff here if you want something special to happen
+            }
+        }
+        currentPackage++; //next index for list
         receiving = false;
-
-
     }
 
     public static void writeToFile(Context context, String fileName, String data) {
@@ -353,18 +370,18 @@ public class ActiveWorkoutActivity extends AppCompatActivity {
 
     public void convertArrayListToDoubleArrays(ArrayList<ArrayList<?>> arrayList) {
         try {
-            if(currentItem >= 0){
+            if(currentPackage >= 0){
                 if (arrayList.size() >= 5) {
-                    itemList.get(currentItem)[0] = concatenateArrays(itemList.get(currentItem)[0], convertToDoubleArray(arrayList.get(0)));
-                    itemList.get(currentItem)[1] = concatenateArrays(itemList.get(currentItem)[1], convertToDoubleArray(arrayList.get(1)));
-                    itemList.get(currentItem)[2] = concatenateArrays(itemList.get(currentItem)[2], convertToDoubleArray(arrayList.get(2)));
-                    itemList.get(currentItem)[3] = concatenateArrays(itemList.get(currentItem)[3], convertToDoubleArray(arrayList.get(3)));
-                    itemList.get(currentItem)[4] = concatenateArrays(itemList.get(currentItem)[4], convertToDoubleArray(arrayList.get(4)));
+                    itemList.get(currentPackage)[0] = concatenateArrays(itemList.get(currentPackage)[0], convertToDoubleArray(arrayList.get(0)));
+                    itemList.get(currentPackage)[1] = concatenateArrays(itemList.get(currentPackage)[1], convertToDoubleArray(arrayList.get(1)));
+                    itemList.get(currentPackage)[2] = concatenateArrays(itemList.get(currentPackage)[2], convertToDoubleArray(arrayList.get(2)));
+                    itemList.get(currentPackage)[3] = concatenateArrays(itemList.get(currentPackage)[3], convertToDoubleArray(arrayList.get(3)));
+                    itemList.get(currentPackage)[4] = concatenateArrays(itemList.get(currentPackage)[4], convertToDoubleArray(arrayList.get(4)));
                 }
 
                 // Add the sixth element (Beat) with varying length
                 if (arrayList.size() >= 6) {
-                    itemList.get(currentItem)[5] = concatenateArrays(itemList.get(currentItem)[5], convertToDoubleArray(arrayList.get(5)));
+                    itemList.get(currentPackage)[5] = concatenateArrays(itemList.get(currentPackage)[5], convertToDoubleArray(arrayList.get(5)));
                 }
             }
         } catch (Exception e) {

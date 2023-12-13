@@ -8,12 +8,16 @@
 
     <Button
         android:id="@+id/btnBack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
         android:text="Back"
         android:layout_margin="16dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        android:textColor="@color/textBlack"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:background="@drawable/round_rect_button"
         />
 
     <Button
@@ -26,7 +30,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.944" />
+        app:layout_constraintVertical_bias="0.944"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:background="@drawable/round_rect_button"/>
 
     <Button
         android:id="@+id/collectDataButton"
@@ -40,7 +47,10 @@
         app:layout_constraintHorizontal_bias="0.842"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="1.0"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:background="@drawable/round_rect_button"/>
 
     <Button
         android:id="@+id/clearDataButton"
@@ -52,7 +62,10 @@
         app:layout_constraintEnd_toStartOf="@+id/collectDataButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.963" />
+        app:layout_constraintVertical_bias="0.963"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:background="@drawable/round_rect_button"/>
 
     <TextView
         android:id="@+id/dataCounter"
@@ -76,6 +89,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dataCounter"
-        app:layout_constraintVertical_bias="0.294" />
+        app:layout_constraintVertical_bias="0.294"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:background="@drawable/round_rect_button"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,6 +11,8 @@ public class WorkoutSummaryItem implements Serializable {
     private long workoutId;
     private List<List<Double>> correlationScores;
 
+    public WorkoutSummaryItem() {}
+
     public WorkoutSummaryItem(String date, long totalTime, String totalYards) {
         this.date = date;
         this.totalTime = totalTime;
@@ -28,18 +30,23 @@ public class WorkoutSummaryItem implements Serializable {
     public String getDate() {
         return date;
     }
+    public void setDate(String date) { this.date = date; }
 
     public long getTotalTime() {
         return totalTime;
     }
+    public void setTotalTime(long totalTime) { this.totalTime = totalTime; }
 
     public String getTotalYards() {
         return totalYards;
     }
+    public void setTotalYards(String yards) { this.totalYards = totalYards; }
 
     public long getWorkoutId() { return workoutId; }
+    public void setWorkoutId(long id) { this.workoutId = id; }
 
     public List<List<Double>> getCorrelationScores() { return correlationScores; }
+    public void setCorrelationScores(List<List<Double>> scores) { this.correlationScores = correlationScores; }
 
     public static List<List<Double>> stringToList(String input) {
         List<List<Double>> result = new ArrayList<>();

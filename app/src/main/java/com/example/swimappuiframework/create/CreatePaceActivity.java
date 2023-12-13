@@ -2,6 +2,7 @@ package com.example.swimappuiframework.create;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import android.content.Intent;
@@ -16,11 +17,15 @@ import com.example.swimappuiframework.MyApp;
 import com.example.swimappuiframework.R;
 import com.example.swimappuiframework.data.DataHandler;
 import com.example.swimappuiframework.data.Pace;
+import com.example.swimappuiframework.data.Workout;
 import com.example.swimappuiframework.data.WorkoutItem;
 import com.example.swimappuiframework.database.DatabaseViewModel;
 import com.example.swimappuiframework.create.RecordActivity;
 import com.example.swimappuiframework.workout.ActiveWorkoutActivity;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -142,6 +147,33 @@ public class CreatePaceActivity extends AppCompatActivity {
                     pace.setPitchPaceList(pitchAverage);
 
                     databaseViewModel.insert(pace);
+
+                    // Retrieve the existing list from SharedPreferences
+                    SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+                    Gson gson = new Gson();
+                    String json = sharedPreferences.getString("paceListKey", null);
+
+                    List<Pace> paceList;
+
+                    // If the list doesn't exist yet, create a new one
+                    if (json == null) {
+                        paceList = new ArrayList<>();
+                    } else {
+                        // Convert the JSON string back to a List<Workout>
+                        Type type = new TypeToken<List<Pace>>() {}.getType();
+                        paceList = gson.fromJson(json, type);
+                    }
+
+                    // Add the new Workout to the list
+                    paceList.add(pace);
+
+                    // Convert the updated list to JSON
+                    String updatedJson = gson.toJson(paceList);
+
+                    // Save the updated JSON string back to SharedPreferences
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("paceListKey", updatedJson);
+                    editor.apply();
 
                     onBackPressed();
                 }

@@ -56,11 +56,11 @@ public class SelectedWorkoutItemFragment extends DialogFragment {
         if (getArguments() != null) {
             selectedItem = (WorkoutItem) getArguments().getSerializable(ARG_WORKOUT_ITEM);
 
-            nameTextView.setText("Name: " + selectedItem.getName());
+            nameTextView.setText(selectedItem.getName());
             notesTextView.setText("Notes: " + selectedItem.getNotes());
             distanceTextView.setText("Distance: " + selectedItem.getDistance() + "m");
             countTextView.setText("Count: " + selectedItem.getCount());
-            paceTextView.setText("Pace: " + selectedItem.getPace());
+            paceTextView.setText("Pace: " + selectedItem.getPaceObject().getName());
         }
 
         backButton.setOnClickListener(new View.OnClickListener() {

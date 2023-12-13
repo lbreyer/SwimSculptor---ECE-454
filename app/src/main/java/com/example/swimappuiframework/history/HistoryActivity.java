@@ -51,30 +51,38 @@ public class HistoryActivity extends AppCompatActivity {
         //workoutSummaryItems.add(new WorkoutSummaryItem("11/5/2023", "1:34:29", "2100"));
 
 
-//        // Retrieve the stored JSON string from SharedPreferences
-//        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
-//        String json = sharedPreferences.getString("historyListKey", null);
-//
-//        // If the JSON string exists
-//        if (json != null) {
-//            // Convert the JSON string back to a List<Workout>
-//            Gson gson = new Gson();
-//            Type type = new TypeToken<List<HistoryItem>>() {
-//            }.getType();
-//            retrievedHistoryList = gson.fromJson(json, type);
-//        }
-//
-//        if(retrievedHistoryList != null && !retrievedHistoryList.isEmpty()){
-//            for (HistoryItem item : retrievedHistoryList) {
+        // Retrieve the stored JSON string from SharedPreferences
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        String json = sharedPreferences.getString("historyListKey", null);
+
+        // If the JSON string exists
+        if (json != null) {
+            // Convert the JSON string back to a List<Workout>
+            Gson gson = new Gson();
+            Type type = new TypeToken<List<HistoryItem>>() {
+            }.getType();
+            retrievedHistoryList = gson.fromJson(json, type);
+        }
+
+        if(retrievedHistoryList != null && !retrievedHistoryList.isEmpty()){
+            for (HistoryItem item : retrievedHistoryList) {
+                workoutSummaryItems.add(new WorkoutSummaryItem(item));
+            }
+        }
+
+//        if(items != null && !items.isEmpty()){
+//            for (HistoryItem item : items) {
 //                workoutSummaryItems.add(new WorkoutSummaryItem(item));
 //            }
 //        }
 
-        if(items != null && !items.isEmpty()){
-            for (HistoryItem item : items) {
-                workoutSummaryItems.add(new WorkoutSummaryItem(item));
-            }
-        }
+        WorkoutSummaryItem temp = new WorkoutSummaryItem();
+        temp.setDate("12/12/2023");
+        temp.setTotalTime(120);
+        temp.setTotalYards("2400 yards");
+        temp.setWorkoutId(0);
+        temp.setCorrelationScores(new ArrayList<>());
+        workoutSummaryItems.add(temp);
 
         // Create a custom adapter for the list view.
         WorkoutListAdapter adapter = new WorkoutListAdapter(this, workoutSummaryItems);

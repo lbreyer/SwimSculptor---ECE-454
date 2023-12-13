@@ -31,7 +31,7 @@ public class WorkoutListAdapter extends ArrayAdapter<WorkoutSummaryItem> {
         TextView textViewTotalYards = convertView.findViewById(R.id.textViewTotalYards);
 
         textViewDate.setText("Date: " + item.getDate());
-        textViewTotalTime.setText("Total Time: " + item.getTotalTime());
+        textViewTotalTime.setText("Total Time: " + item.getTotalTime() + " minutes");
         textViewTotalYards.setText("Total Yards: " + item.getTotalYards());
 
         return convertView;

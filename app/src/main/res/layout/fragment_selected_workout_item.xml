@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/mainBackground">
 
     <Button
         android:id="@+id/back_button"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
+        android:text="Close"
+        android:layout_margin="16dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:text="Close" />
+        android:textColor="@color/textBlack"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:background="@drawable/round_rect_button"
+        />
 
-    <!-- Name TextView -->
     <TextView
         android:id="@+id/name_textview"
         android:layout_width="wrap_content"
@@ -20,19 +26,22 @@
         android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"
         android:text="Name"
-        android:textSize="20sp"
+        android:textColor="@color/textBlack"
+        android:textSize="32dp"
         android:textStyle="bold" />
 
-    <!-- Notes TextView -->
     <TextView
         android:id="@+id/notes_textview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/name_textview"
-        android:layout_margin="16dp"
-        android:text="Notes" />
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="Notes"
+        android:textColor="@color/textBlack"
+        android:textSize="24dp"
+        android:textStyle="bold"/>
 
-    <!-- Distance TextView -->
     <TextView
         android:id="@+id/distance_textview"
         android:layout_width="match_parent"
@@ -40,9 +49,11 @@
         android:layout_below="@id/notes_textview"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:text="Distance" />
+        android:text="Distance"
+        android:textColor="@color/textBlack"
+        android:textSize="24dp"
+        android:textStyle="bold"/>
 
-    <!-- Count TextView -->
     <TextView
         android:id="@+id/count_textview"
         android:layout_width="match_parent"
@@ -50,7 +61,10 @@
         android:layout_below="@id/distance_textview"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:text="Count" />
+        android:text="Count"
+        android:textColor="@color/textBlack"
+        android:textSize="24dp"
+        android:textStyle="bold"/>
 
     <!-- Pace TextView -->
     <TextView
@@ -60,15 +74,23 @@
         android:layout_below="@id/count_textview"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:text="Pace" />
+        android:text="Pace"
+        android:textColor="@color/textBlack"
+        android:textSize="24dp"
+        android:textStyle="bold"/>
 
     <Button
         android:id="@+id/remove_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="16dp"
-        android:text="Remove" />
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="32dp"
+        android:text="Remove"
+        android:textColor="@color/textBlack"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:background="@drawable/round_rect_button"
+        android:layout_below="@id/pace_textview"/>
 
 </RelativeLayout>

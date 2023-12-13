@@ -175,6 +175,33 @@ public class ActiveWorkoutActivity extends AppCompatActivity {
 
                 databaseViewModel.insert(item);
 
+                // Retrieve the existing list from SharedPreferences
+                SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+                Gson gson = new Gson();
+                String json = sharedPreferences.getString("historyListKey", null);
+
+                List<HistoryItem> historyList;
+
+                // If the list doesn't exist yet, create a new one
+                if (json == null) {
+                    historyList = new ArrayList<>();
+                } else {
+                    // Convert the JSON string back to a List<Workout>
+                    Type type = new TypeToken<List<HistoryItem>>() {}.getType();
+                    historyList = gson.fromJson(json, type);
+                }
+
+                // Add the new Workout to the list
+                historyList.add(item);
+
+                // Convert the updated list to JSON
+                String updatedJson = gson.toJson(historyList);
+
+                // Save the updated JSON string back to SharedPreferences
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("historyListKey", updatedJson);
+                editor.apply();
+
                 onBackPressed();
             }
         });

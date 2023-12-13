@@ -24,6 +24,7 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class CreateWorkoutActivity extends AppCompatActivity implements AddWorkoutItemDialogFragment.OnDataPassedListener, SelectedWorkoutItemFragment.OnDataPassedListener {
 
@@ -92,6 +93,11 @@ public class CreateWorkoutActivity extends AppCompatActivity implements AddWorko
                 workout.setTotalDistance(mAdapter.mSelectedWorkoutItemList);
 
                 databaseViewModel.insert(workout);
+
+                Random random = new Random();
+                int randomNumber = random.nextInt(1000000);
+
+                workout.id = randomNumber;
 
                 // Retrieve the existing list of workouts from SharedPreferences
                 SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);

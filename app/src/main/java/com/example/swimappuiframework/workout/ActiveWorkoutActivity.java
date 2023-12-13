@@ -41,6 +41,7 @@ import java.util.Collections;
 import java.util.List;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -146,6 +147,8 @@ public class ActiveWorkoutActivity extends AppCompatActivity {
                 }
             }
         }
+        mAdapter.notifyDataSetChanged();
+
         if(workoutItems.size() > 0){
             currentItem = 0;
             currentCnt = 0;
@@ -174,6 +177,11 @@ public class ActiveWorkoutActivity extends AppCompatActivity {
                 item.setCorrValues(corrValues);
 
                 databaseViewModel.insert(item);
+
+                Random random = new Random();
+                int randomNumber = random.nextInt(1000000);
+
+                item.id = randomNumber;
 
                 // Retrieve the existing list from SharedPreferences
                 SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);

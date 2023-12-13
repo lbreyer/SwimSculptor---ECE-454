@@ -13,7 +13,6 @@ import java.util.List;
 public class MyApp extends Application {
 
     private DatabaseViewModel databaseViewModel;
-
     @Override
     public void onCreate() {
         super.onCreate();

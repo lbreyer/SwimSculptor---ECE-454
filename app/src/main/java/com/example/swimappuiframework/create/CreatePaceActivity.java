@@ -28,6 +28,7 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class CreatePaceActivity extends AppCompatActivity {
 
@@ -147,6 +148,11 @@ public class CreatePaceActivity extends AppCompatActivity {
                     pace.setPitchPaceList(pitchAverage);
 
                     databaseViewModel.insert(pace);
+
+                    Random random = new Random();
+                    int randomNumber = random.nextInt(1000000);
+
+                    pace.id = randomNumber;
 
                     // Retrieve the existing list from SharedPreferences
                     SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);

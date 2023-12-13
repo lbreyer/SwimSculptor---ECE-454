@@ -33,6 +33,7 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class CreateWorkoutItemDialogFragment extends DialogFragment {
 
@@ -129,6 +130,11 @@ public class CreateWorkoutItemDialogFragment extends DialogFragment {
                 workoutItem.setNotes(notes);
 
                 databaseViewModel.insert(workoutItem);
+
+                Random random = new Random();
+                int randomNumber = random.nextInt(1000000);
+
+                workoutItem.id = randomNumber;
 
                 // Retrieve the existing list of workouts from SharedPreferences
                 SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("MyPrefs", MODE_PRIVATE);

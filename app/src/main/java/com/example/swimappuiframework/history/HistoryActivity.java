@@ -76,13 +76,13 @@ public class HistoryActivity extends AppCompatActivity {
 //            }
 //        }
 
-        WorkoutSummaryItem temp = new WorkoutSummaryItem();
-        temp.setDate("12/12/2023");
-        temp.setTotalTime(120);
-        temp.setTotalYards("2400 yards");
-        temp.setWorkoutId(0);
-        temp.setCorrelationScores(new ArrayList<>());
-        workoutSummaryItems.add(temp);
+//        WorkoutSummaryItem temp = new WorkoutSummaryItem();
+//        temp.setDate("12/12/2023");
+//        temp.setTotalTime(120);
+//        temp.setTotalYards("2400 yards");
+//        temp.setWorkoutId(0);
+//        temp.setCorrelationScores(new ArrayList<>());
+//        workoutSummaryItems.add(temp);
 
         // Create a custom adapter for the list view.
         WorkoutListAdapter adapter = new WorkoutListAdapter(this, workoutSummaryItems);

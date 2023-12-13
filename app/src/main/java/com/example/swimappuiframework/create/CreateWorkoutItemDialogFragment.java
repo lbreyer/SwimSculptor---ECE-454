@@ -63,9 +63,10 @@ public class CreateWorkoutItemDialogFragment extends DialogFragment {
         if (paces == null || paces.isEmpty()) {
             paces = new ArrayList<>();
         }
-        paces.add(new Pace("Test Pace 1", "Notes", new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>()));
-        paces.add(new Pace("Test Pace 2", "Notes", new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>()));
-        paces.add(new Pace("Test Pace 3", "Notes", new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>()));
+        paces.add(new Pace("Easy", "Easy Swim, DPS", new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>()));
+        paces.add(new Pace("Tempo", "200/400 Pace", new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>()));
+        paces.add(new Pace("Sprint", "All Out", new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>()));
+        paces.add(new Pace("Warmup", "Easy Stretch", new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>()));
 
         paceList = paces;
         ArrayAdapter<Pace> spinnerAdapter = new ArrayAdapter<Pace>(requireContext(), R.layout.list_item_pace, paceList) {

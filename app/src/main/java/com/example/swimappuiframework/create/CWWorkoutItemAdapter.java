@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.swimappuiframework.R;
 import com.example.swimappuiframework.data.WorkoutItem;
+import com.example.swimappuiframework.history.SelectedHistoryWorkoutItemFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,11 +30,22 @@ public class CWWorkoutItemAdapter extends
     private Context context;
 
     private FragmentManager mFragManager;
+    private int mode;
+    private List<String> itemSuggestions;
 
-    public CWWorkoutItemAdapter(Context context, FragmentManager mFragManager) {
+    public CWWorkoutItemAdapter(Context context, FragmentManager mFragManager, int mode) {
         mInflater = LayoutInflater.from(context);
         mSelectedWorkoutItemList = new ArrayList<>();
         this.mFragManager = mFragManager;
+        this.mode = mode;
+    }
+
+    public CWWorkoutItemAdapter(Context context, FragmentManager mFragManager, int mode, List<String> itemSuggestions) {
+        mInflater = LayoutInflater.from(context);
+        mSelectedWorkoutItemList = new ArrayList<>();
+        this.mFragManager = mFragManager;
+        this.mode = mode;
+        this.itemSuggestions = itemSuggestions;
     }
 
     @NonNull
@@ -76,8 +88,14 @@ public class CWWorkoutItemAdapter extends
             // Notify the adapter, that the data has changed so it can
             // update the RecyclerView to display the data.
 
-            SelectedWorkoutItemFragment mFrag = SelectedWorkoutItemFragment.newInstance(element);
-            mFrag.show(mFragManager, "fragment_selected_workout_item");
+            if (mode == 0) {
+                SelectedWorkoutItemFragment mFrag = SelectedWorkoutItemFragment.newInstance(element);
+                mFrag.show(mFragManager, "fragment_selected_workout_item");
+            }
+            else if (mode == 1) {
+                SelectedHistoryWorkoutItemFragment mFrag = SelectedHistoryWorkoutItemFragment.newInstance(element, "itemSuggestions.get(mPosition)");
+                mFrag.show(mFragManager, "fragment_selected_history_workout_item");
+            }
         }
     }
 

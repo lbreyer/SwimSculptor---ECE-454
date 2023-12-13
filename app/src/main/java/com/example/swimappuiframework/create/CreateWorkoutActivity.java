@@ -42,7 +42,7 @@ public class CreateWorkoutActivity extends AppCompatActivity implements AddWorko
 
         // Set up the recycler view in the popup
         mRecyclerView = findViewById(R.id.recyclerview);
-        mAdapter = new CWWorkoutItemAdapter(this, getSupportFragmentManager());
+        mAdapter = new CWWorkoutItemAdapter(this, getSupportFragmentManager(), 0);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 

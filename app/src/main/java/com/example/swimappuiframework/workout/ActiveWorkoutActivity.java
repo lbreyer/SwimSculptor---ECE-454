@@ -432,6 +432,19 @@ public class ActiveWorkoutActivity extends AppCompatActivity {
             currCorrValues.add(handler.calcFullCorrelation(rollStrokes, pace.getRollPaceList()));
             currCorrValues.add(handler.calcFullCorrelation(pitchStrokes, pace.getPitchPaceList()));
 
+            double num = 0;
+            double total = 0;
+            for (List<Double> dataset : currCorrValues){
+                for (Double val : dataset){
+                    num++;
+                    total += val;
+                }
+            }
+            double average = total / num;
+            if(average < .65){
+                vibrateWatch();
+            }
+
             corrValues.add(currCorrValues);
         }
 
@@ -461,6 +474,8 @@ public class ActiveWorkoutActivity extends AppCompatActivity {
             }
         }
     }
+
+
 
     public static void clearFile(Context context, String fileName) {
         FileOutputStream fos = null;
@@ -498,6 +513,18 @@ public class ActiveWorkoutActivity extends AppCompatActivity {
             return null;
         }
     }
+    public void vibrateWatch() {
+        if(devices.size() > 0){
+            try {
+                send(new ArrayList<Object>(Collections.singleton("Vibrate")), 0);
+            } catch (InvalidStateException e) {
+                throw new RuntimeException(e);
+            } catch (ServiceUnavailableException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
 
     public void convertArrayListToDoubleArrays(ArrayList<ArrayList<?>> arrayList) {
         try {

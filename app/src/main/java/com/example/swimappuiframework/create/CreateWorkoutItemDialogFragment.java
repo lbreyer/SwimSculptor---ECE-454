@@ -131,6 +131,7 @@ public class CreateWorkoutItemDialogFragment extends DialogFragment {
 
                 databaseViewModel.insert(workoutItem);
 
+                // TEMP PATCH FOR DEMO DUE TO DATABASE OUTAGE
                 Random random = new Random();
                 int randomNumber = random.nextInt(1000000);
 

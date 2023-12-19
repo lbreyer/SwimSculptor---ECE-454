@@ -42,13 +42,14 @@ public class WorkoutSummaryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workout_summary);
 
-        databaseViewModel = ((MyApp) getApplication()).getWorkoutItemViewModel(); // TODO use to get workout from summary item
+        databaseViewModel = ((MyApp) getApplication()).getWorkoutItemViewModel();
 
         Button btnBack = findViewById(R.id.btnBack);
 
         TextView textViewDate = findViewById(R.id.textViewDate);
         TextView textViewTotalTime = findViewById(R.id.textViewTime);
         TextView textViewTotalYards = findViewById(R.id.textViewTotalYards);
+        TextView textViewSugg = findViewById(R.id.textViewSuggestionList);
 
         // Retrieve workout data from the intent.
         Intent intent = getIntent();
@@ -62,9 +63,11 @@ public class WorkoutSummaryActivity extends AppCompatActivity {
             //textViewTotalTime.setText(workoutSummaryItem.getTotalTime() + " minutes");
             //textViewTotalYards.setText("Total Yards: " + workoutSummaryItem.getTotalYards());
 
-            textViewDate.setText("12/13/2023");
-            textViewTotalTime.setText("135 minutes");
-            textViewTotalYards.setText("Total Yards: 1675 yards");
+            textViewDate.setText(workoutSummaryItem.getDate());
+            textViewTotalTime.setText(workoutSummaryItem.getTotalTime() + " minutes");
+            textViewTotalYards.setText("Total Yards: " + workoutSummaryItem.getTotalYards());
+            String sugg = getString(R.string.Overall_Sugg) + getString(R.string.Overall_Sugg2);
+            textViewSugg.setText(sugg);
         }
 
         // Get Workout Items
@@ -126,8 +129,21 @@ public class WorkoutSummaryActivity extends AppCompatActivity {
         TextView textViewName = findViewById(R.id.textViewName);
         textViewName.setText(selWorkout.getName());
 
+        // DEMO ITEMS
+        List<String> suggs = new ArrayList<>();
+        String s1 = "(Warmup Pace Untracked)";
+        String s2 = "(Warmup Pace Untracked)";
+        String s3 = "- Make sure to maintain good body position out of turns and starts.\n" +
+                "- Focus on holding a tight streamline longer out of turns.";
+        String s4 = "- High average correlation. Good Job!";
+
+        suggs.add(s1);
+        suggs.add(s2);
+        suggs.add(s3);
+        suggs.add(s4);
+
         mRecyclerView = findViewById(R.id.recyclerview);
-        mAdapter = new CWWorkoutItemAdapter(this, getSupportFragmentManager(), 1);
+        mAdapter = new CWWorkoutItemAdapter(this, getSupportFragmentManager(), 1, suggs);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 

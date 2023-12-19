@@ -93,7 +93,7 @@ public class CWWorkoutItemAdapter extends
                 mFrag.show(mFragManager, "fragment_selected_workout_item");
             }
             else if (mode == 1) {
-                SelectedHistoryWorkoutItemFragment mFrag = SelectedHistoryWorkoutItemFragment.newInstance(element, "itemSuggestions.get(mPosition)");
+                SelectedHistoryWorkoutItemFragment mFrag = SelectedHistoryWorkoutItemFragment.newInstance(element, itemSuggestions.get(mPosition));
                 mFrag.show(mFragManager, "fragment_selected_history_workout_item");
             }
         }

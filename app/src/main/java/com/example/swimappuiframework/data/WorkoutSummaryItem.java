@@ -40,7 +40,7 @@ public class WorkoutSummaryItem implements Serializable {
     public String getTotalYards() {
         return totalYards;
     }
-    public void setTotalYards(String yards) { this.totalYards = totalYards; }
+    public void setTotalYards(String totalYards) { this.totalYards = totalYards; }
 
     public long getWorkoutId() { return workoutId; }
     public void setWorkoutId(long id) { this.workoutId = id; }

@@ -46,4 +46,6 @@
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
     <string name="workoutitemlistkey">workoutItemListKey</string>
+    <string name="Overall_Sugg">- Average Correlation decreased throughout the set, focus on form as you get tired.\n</string>
+    <string name="Overall_Sugg2">- Total Average Correlation was high for this workout (79.4%). Good Job!</string>
 </resources>
